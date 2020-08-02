@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using eCommerceSite.Data;
 using eCommerceSite.Models;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 
 namespace eCommerceSite.Controllers
 {
@@ -21,13 +22,39 @@ namespace eCommerceSite.Controllers
         /// <summary>
         /// Displays a view that lists all products.
         /// </summary>
-        public IActionResult Index()
+        public async Task<IActionResult> Index()
         {
             // Get all products from DB.
-            List<Product> products = _context.Products.ToList();
+            //List<Product> products = _context.Products.ToList();
+            List<Product> products =
+                await (from p in _context.Products
+                      select p).ToListAsync();
 
             // Send list of products to view to be displayed.
             return View(products);
+        }
+        
+        [HttpGet]
+        public IActionResult Add()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> Add(Product p)
+        {
+            if (ModelState.IsValid)
+            {
+                // Add to DB
+                _context.Products.Add(p);
+                await _context.SaveChangesAsync();
+
+                TempData["Message"] = $"{p.Title} was added successfully with an ID of {p.ProductId}.";
+
+                // redirect back to catalog page
+                return RedirectToAction("Index");
+            }
+            return View();
         }
     }
 }
