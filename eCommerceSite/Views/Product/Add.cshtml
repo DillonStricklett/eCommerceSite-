@@ -7,19 +7,19 @@
 
 <form method="post">
     <label asp-for="Title"></label>
-    <input asp-for="Title" />
+    <input class="form-control" placeholder="Ex: Computer Monitor" asp-for="Title" />
     <span asp-validation-for="Title"></span>
     <br />
 
     <label asp-for="Price"></label>
-    <input asp-for="Price" />
+    <input class="form-control" placeholder="In USD. Ex: 75.00" asp-for="Price" />
     <span asp-validation-for="Price"></span>
     <br />
 
     <label asp-for="Category"></label>
-    <input asp-for="Category" />
+    <input class="form-control" placeholder="Ex: Electronics" asp-for="Category" />
     <span asp-validation-for="Category"></span>
     <br />
 
-    <input type="submit" />
+    <input class="btn btn-dark" type="submit" />
 </form>
