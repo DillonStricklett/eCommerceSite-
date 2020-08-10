@@ -20,15 +20,24 @@ namespace eCommerceSite.Controllers
         }
 
         /// <summary>
-        /// Displays a view that lists all products.
+        /// Displays a view that lists a page of products.
         /// </summary>
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> Index(int? id)
         {
+            // Notes:https://docs.microsoft.com/en-us/dotnet/csharp/language-reference/operators/null-coalescing-operator
+            int pageNum = id ?? 1;
+            const int PageSize = 3;
+
+
             // Get all products from DB.
             //List<Product> products = _context.Products.ToList();
             List<Product> products =
                 await (from p in _context.Products
-                      select p).ToListAsync();
+                       orderby p.Title ascending
+                      select p)
+                      .Skip(PageSize * (pageNum - 1)) // Skip()must be before Take()
+                      .Take(PageSize)
+                      .ToListAsync();
 
             // Send list of products to view to be displayed.
             return View(products);
