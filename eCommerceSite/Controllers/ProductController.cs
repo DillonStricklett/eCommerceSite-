@@ -27,7 +27,14 @@ namespace eCommerceSite.Controllers
             // Notes:https://docs.microsoft.com/en-us/dotnet/csharp/language-reference/operators/null-coalescing-operator
             int pageNum = id ?? 1;
             const int PageSize = 3;
+            ViewData["CurrentPage"] = pageNum;
 
+            int numProducts = await (from p in _context.Products
+                               select p).CountAsync();
+
+            int totalPages = (int)Math.Ceiling((double)numProducts / PageSize);
+
+            ViewData["MaxPage"] = totalPages;
 
             // Get all products from DB.
             //List<Product> products = _context.Products.ToList();
