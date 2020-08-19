@@ -23,18 +23,24 @@ namespace eCommerceSite.Models
     public class RegisterViewModel
     {
         [Required]
+        [EmailAddress]
+        [StringLength(200)]
         public string Email { get; set; }
+
         [Required]
+        [Display(Name = "Confirim Email")]
         [Compare(nameof(Email))]
         public string ConfirmEmail { get; set; }
 
         [Required]
-        [DataType(DataType.Password)]
+        [DataType(DataType.Password)]       // The numbers are the index position of arguments.
+        [StringLength(120, MinimumLength = 6, ErrorMessage = "Password must be between {2} and {1}.")]
         public string Password { get; set; }
 
         [Required]
         [DataType(DataType.Password)]
         [Compare(nameof(Password))]
+        [Display(Name = "Confrim Password")]
         public string ConfirmPassword { get; set; }
 
         [DataType(DataType.Date)] // Time is ignored
