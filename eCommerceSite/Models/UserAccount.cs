@@ -17,7 +17,7 @@ namespace eCommerceSite.Models
 
         public string Password { get; set; }
 
-        public DateTime? DateOfBrith { get; set; }
+        public DateTime? DateOfBirth { get; set; }
     }
 
     public class RegisterViewModel
@@ -28,9 +28,13 @@ namespace eCommerceSite.Models
         public string Email { get; set; }
 
         [Required]
-        [Display(Name = "Confirim Email")]
+        [Display(Name = "Confirm Email")]
         [Compare(nameof(Email))]
         public string ConfirmEmail { get; set; }
+
+        [Required]
+        [StringLength(20)]
+        public string Username { get; set; }
 
         [Required]
         [DataType(DataType.Password)]       // The numbers are the index position of arguments.
