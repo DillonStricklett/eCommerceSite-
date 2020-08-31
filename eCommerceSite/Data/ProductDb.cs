@@ -50,6 +50,12 @@ namespace eCommerceSite.Data
            Product p = await (from prod in _context.Products
                    where prod.ProductId == id
                    select prod).SingleAsync();
+
+            //Product p2 =
+            //   await  _context
+            //   .Products
+            //   .Where(prod => prod.ProductId == id).SingleAsync();
+
             return p;
         }
     }

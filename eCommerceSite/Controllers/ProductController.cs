@@ -66,13 +66,7 @@ namespace eCommerceSite.Controllers
         [HttpGet]
         public async Task<IActionResult> Edit(int id)
         {
-            // Get product with corresponding ID
             Product p = await ProductDb.GetProductByIdAsync(_context, id);
-
-            //Product p2 =
-            //   await  _context
-            //   .Products
-            //   .Where(prod => prod.ProductId == id).SingleAsync();
 
             // Pass product to view
             return View(p);
